@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2023 Adobe
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file in
+    accordance with the terms of the Adobe license agreement accompanying
+    it.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.bridgeservice.demo.backend</groupId>
+    <artifactId>backend-tests</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <license.dir>../../LICENSE_DATA</license.dir>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+            <!-- License information -->
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>4.2</version>
+                <configuration>
+                    <licenseSets>
+                        <licenseSet>
+                            <header>${license.dir}/LicenseHeader</header>
+                            <excludes>
+                                <exclude>**/*.md</exclude>
+                                <exclude>**/*.properties</exclude>
+                                <exclude>LICENSE_DATA/**</exclude>
+                                <exclude>ibs_output/**</exclude>
+                                <exclude>**/ibs_output/**</exclude>
+                                <exclude>${license.dir}/**</exclude>
+                                <exclude>**/*.drawio</exclude>
+                            </excludes>
+                        </licenseSet>
+                    </licenseSets>
+                    <properties>
+                        <project>
+                            Integro Bridge Service
+                        </project>
+                        <founder>Adobe Systems Incorporated</founder>
+                        <year>2022</year>
+                        <website>http://www.adobe.com/</website>
+                    </properties>
+                    <strictCheck>true</strictCheck>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-path</artifactId>
+            <version>5.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.8.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.campaign.tests.bridge.service</groupId>
+            <artifactId>integroBridgeService</artifactId>
+            <version>2.11.14</version>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        -->
+    </dependencies>
+
+</project>

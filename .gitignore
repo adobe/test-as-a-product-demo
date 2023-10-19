@@ -1,0 +1,4 @@
+.idea
+*.iml
+e2e-tests/frontend-tests/fe-tests-cypress/cypress/screenshots/
+.DS_Store

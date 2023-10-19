@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+    Copyright 2023 Adobe
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file in
+    accordance with the terms of the Adobe license agreement accompanying
+    it.
+
+-->
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Blog demo backend test Suite"
+    configfailurepolicy="continue">
+    <test verbose="2" name="Blog demo backend  Automatic Tests"
+        time-out="1200000">
+        
+        <packages>
+            <package
+                name="com.bridgeservice.demo.backend" />
+        </packages>
+    </test>
+</suite> <!-- Default suite -->
