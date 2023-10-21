@@ -16,6 +16,29 @@ In this chapter we help you start the demo project.
 The back-end project has been tested with node `v20.7.0`.
 The front-end project has been tested with node `v20.7.0` and react `^18.2.0"`.
 
+### Deployment Order
+There is a rough deployment order to get this project running:
+1. Start the Back End
+2. Testing the Back End
+3. Start the my-blog app
+4. Testing the front end
+
+#### 1. Starting the Back-End
+To start the backend :
+1. Go to the directory `my-blog-backend`.
+2. Press `npm run dev`
+
+Now you can test the system by running backend tests.
+
+#### 2. Starting the Front-End
+To run the backend tests:
+1. Go to the directory `e2e-tests/backend-tests`.
+2. Press `npm run dev`
+
+Now you can test the system by running backend tests.
+
+
+
 ### Starting steps
 In order to get the project you need to perform the following steps:
 1. open terminal
