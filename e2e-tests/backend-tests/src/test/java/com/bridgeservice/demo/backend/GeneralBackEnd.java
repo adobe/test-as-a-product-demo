@@ -25,12 +25,12 @@ public class GeneralBackEnd {
 
     @Test
     public void testUpVote() {
-        JsonPath l_article = MyBlogBackEnd.fetchArticle(STD_URL, "learn-german");
+        JsonPath l_article = MyBlogBackEnd.fetchArticle(STD_URL, "learn-swedish");
         int currentUpvote = Integer.parseInt(l_article.get("upvotes").toString());
         System.out.println(currentUpvote);
         currentUpvote++;
 
-        JsonPath newValue = MyBlogBackEnd.upVoteArticle(STD_URL, "learn-german");
+        JsonPath newValue = MyBlogBackEnd.upVoteArticle(STD_URL, "learn-swedish");
         assertThat("We should find the upvote", newValue.getInt("upvotes"), Matchers.equalTo(currentUpvote));
 
     }
