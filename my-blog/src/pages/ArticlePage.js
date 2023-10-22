@@ -48,7 +48,7 @@ const  ArticlePage = () => {
         <>
         <h1>{article.title}</h1>
         <div className="upvotes-section">
-            <button onClick={addUpvote}>Upvote</button>
+            <button data-testid='upvote-button' onClick={addUpvote}>Upvote</button>
             <p>This article has {articleInfo.upvotes} upvote(s)</p>
         </div>
         {article.content.map((paragraph,i )=> (
