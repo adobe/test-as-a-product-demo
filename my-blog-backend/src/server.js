@@ -18,7 +18,12 @@ let articlesInfo = [{
     name: 'learn-german',
     _id: '100007',
     upvotes: 0,
-    comments: [],
+    comments: [
+        {
+			"postedBy": "Guido Macaroni",
+			"text": "Dass ist ja grauenhaft."
+		}
+    ],
 },{
     name: 'learn-swedish',
     _id: '100013',

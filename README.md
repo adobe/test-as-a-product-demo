@@ -38,7 +38,6 @@ To run the backend tests:
 Now you can test the system by running backend tests.
 
 
-
 ### Starting steps
 In order to get the project you need to perform the following steps:
 1. open terminal
@@ -51,10 +50,10 @@ In order to get the project you need to perform the following steps:
 ## Testing
 We have both backend and frontend tests:
 
-## Back-end Tests
+### Back-end Tests
 To start the backend tests
 * go to project `e2e-tests/backend-tests/`
 * Run tests by entering `mvn clean test`
 
-## Front-end tests
+### Front-end tests
 In order to start the cypress tests `npm run cy:run`. Other simply open cypress for manually assited running `npx cypress open`.
