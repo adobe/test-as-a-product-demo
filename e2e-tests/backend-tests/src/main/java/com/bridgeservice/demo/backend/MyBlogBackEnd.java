@@ -62,8 +62,6 @@ public class MyBlogBackEnd {
      * @return A Json representation of the article
      */
     public static JsonPath upVoteArticle(String in_url, String in_articleId) {
-        //given().put(in_url + API_ROOT+in_articleId+"/upvote").getBody();
-        //ResponseBody lr_returnJSON = MyBlogBackEnd.fetchPutResponse(in_url,API_ROOT+in_articleId+"/upvote");
 
         ExtractableResponse<Response> l_returnValue = given().put(in_url+API_ROOT+in_articleId+"/upvote").then().extract();
         if (l_returnValue.statusCode()==404) {

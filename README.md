@@ -7,14 +7,22 @@ We have the following parts:
 * **e2e-tests/backend-tests** : A Java Project dedicated to testing the my-blog-backend apis.
 * **e2e-tests/frontend-tests/fe-tests-cypress** : A cypress project dedicated to testing the front-end.
 
-![System Design](diagrams/system-System.drawio.png)
+![System Design](./diagrams/system-System.drawio.png)
 
 ## Demo Deployment
 In this chapter we help you start the demo project.
 
 ### Requirements
-The back-end project has been tested with node `v20.7.0`.
-The front-end project has been tested with node `v20.7.0` and react `^18.2.0"`.
+This project has been tested with the node versions:
+* `v20.7.0`
+* `v18.16.1`
+* `v16.17.0` (Better avoid)
+
+and Java versions:
+* Java 18
+* Java 11
+* Java 8
+
 
 ### Deployment Order
 There is a rough deployment order to get this project running:
@@ -26,34 +34,26 @@ There is a rough deployment order to get this project running:
 #### 1. Starting the Back-End
 To start the backend :
 1. Go to the directory `my-blog-backend`.
-2. Press `npm run dev`
+2. Install the dependencies `npm i`
+3. Press `npm run dev`
 
 Now you can test the system by running backend tests.
 
-#### 2. Starting the Front-End
+#### 2. Testing the Back-End
 To run the backend tests:
-1. Go to the directory `e2e-tests/backend-tests`.
-2. Press `npm run dev`
+1. go to project `e2e-tests/backend-tests/`
+2. Run tests by entering `mvn clean test`
 
-Now you can test the system by running backend tests.
+#### 3. Starting the Front-End
+To start the front-end application:
+1. Go to the directory `my-blog`.
+2. Install the dependencies `npm i`
+3. Press `npm run start`
 
+Now you can test the system by running backend tests. But you can see that it is running with the url http://localhost:3000/.
 
-### Starting steps
-In order to get the project you need to perform the following steps:
-1. open terminal
-2. got to `my-blog-backend`
-3. type `npm run dev`. _This starts the back-end node server._
-4. open another terminal
-5. go to directory my-blog
-6. type `npm run start`. _This starts the front-end react interface._
-
-## Testing
-We have both backend and frontend tests:
-
-### Back-end Tests
-To start the backend tests
-* go to project `e2e-tests/backend-tests/`
-* Run tests by entering `mvn clean test`
-
-### Front-end tests
-In order to start the cypress tests `npm run cy:run`. Other simply open cypress for manually assited running `npx cypress open`.
+#### 4. Front-end tests
+In order to start the cypress tests:
+1. go to project `e2e-tests/frontend-tests/fe-tests-cypress`
+2. Install the dependencies `npm i`
+3. `npm run cy:run`. Other simply open cypress for manually assited running `npx cypress open`.
