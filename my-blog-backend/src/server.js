@@ -9,6 +9,25 @@
 
 import express from "express";
 
+/*  Workshop
+let articlesInfo = [{
+    name: 'learn-french',
+    _id: '100003',
+    upvotes: 0,
+    comments: [],
+},{
+    name: 'learn-german',
+    _id: '100007',
+    upvotes: 0,
+    comments: [],
+},{
+    name: 'learn-swedish',
+    _id: '100013',
+    upvotes: 0,
+    comments: [],
+}]
+*/
+
 let articlesInfo = [{
     name: 'learn-french',
     _id: '100003',
@@ -30,6 +49,8 @@ let articlesInfo = [{
     upvotes: 0,
     comments: [],
 }]
+
+
 
 const app = express();
 app.use(express.json());
