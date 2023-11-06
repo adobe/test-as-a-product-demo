@@ -56,4 +56,52 @@ Now you can test the system by running backend tests. But you can see that it is
 In order to start the cypress tests:
 1. go to project `e2e-tests/frontend-tests/fe-tests-cypress`
 2. Install the dependencies `npm i`
-3. `npm run cy:run`. Other simply open cypress for manually assited running `npx cypress open`.
+3. `npm run cy:run`. Or simply open cypress for manually assited running `npx cypress open`.
+
+### Activating the Bridge Service
+To start the bridgeService go to the directory `e2e-tests/backend-tests/`, and press:
+
+```mvn compile exec:java -Dexec.mainClass=MainContainer -Dexec.args="test"```
+
+#### Testing the BridgeService
+To see that the bridgeService is up you will need to try:
+
+```curl http://localhost:8080/test```
+
+This will let you know if the the bridgeService is up and running. 
+
+
+Furthermore you can also press:
+
+```
+curl --request POST \
+  --url http://localhost:8080/call \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"callContent": {
+          "addComment": {
+            "class": "com.bridgeservice.demo.backend.MyBlogBackEnd", 
+            "method": "isSystemUp", 
+            "args": ["http://localhost:8000/"]
+          }
+        }
+}'
+```
+
+Here is another example:
+
+```
+curl --request POST \
+  --url http://localhost:8080/call \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"callContent": {
+          "addComment": {
+            "class": "com.bridgeservice.demo.backend.MyBlogBackEnd", 
+            "method": "fetchArticle", 
+            "args": ["http://localhost:8000/", "learn-swedish"]
+          }
+        }
+}'
+```
+

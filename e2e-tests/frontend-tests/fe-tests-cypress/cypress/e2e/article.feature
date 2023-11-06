@@ -15,6 +15,7 @@ Feature: Articles
 
     Scenario: I can post a comment
         Given I am in the start page
+        Given I have created old comments for the article "learn-german"
         When I go to the articles page
         When I select the article "learn-german"
         Then I should be able to add a comment
