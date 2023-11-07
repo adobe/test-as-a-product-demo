@@ -13,6 +13,13 @@ We have the following parts:
 In this chapter we help you start the demo project.
 
 ### Requirements
+For the project to work you need the following:
+* Git access
+* Java >= 11
+* Node >= 16
+* Maven and access to an artefactory
+
+
 This project has been tested with the node versions:
 * `v20.7.0`
 * `v18.16.1`
@@ -21,7 +28,7 @@ This project has been tested with the node versions:
 and Java versions:
 * Java 18
 * Java 11
-* Java 8
+* Java 8 (Will work just to get the project working. But to finish the demo you will need at least Java 11)
 
 
 ### Deployment Order
