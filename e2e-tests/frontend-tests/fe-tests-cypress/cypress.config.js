@@ -10,7 +10,7 @@ const { defineConfig } = require('cypress')
 const createBundler = require('@bahmutov/cypress-esbuild-preprocessor')
 const { addCucumberPreprocessorPlugin } = require('@badeball/cypress-cucumber-preprocessor')
 const { createEsbuildPlugin }  = require ('@badeball/cypress-cucumber-preprocessor/esbuild')
-const addBridgeService = require('./cypress/plugins/integroBridge')
+const addBridgeService = require('./cypress/plugins/bridgeService')
 
 
 module.exports = defineConfig({
