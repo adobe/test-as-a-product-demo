@@ -30,6 +30,7 @@ module.exports = defineConfig({
 
       // add bridge service
       addBridgeService(on);
+
       return config
     },
     baseUrl: 'http://localhost:3000',
