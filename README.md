@@ -13,6 +13,13 @@ We have the following parts:
 In this chapter we help you start the demo project.
 
 ### Requirements
+For the project to work you need the following:
+* Git access
+* Java >= 11
+* Node >= 16
+* Maven and access to an artefactory
+
+
 This project has been tested with the node versions:
 * `v20.7.0`
 * `v18.16.1`
@@ -21,7 +28,7 @@ This project has been tested with the node versions:
 and Java versions:
 * Java 18
 * Java 11
-* Java 8
+* Java 8 (Will work just to get the project working. But to finish the demo you will need at least Java 11)
 
 
 ### Deployment Order
@@ -56,7 +63,7 @@ Now you can test the system by running backend tests. But you can see that it is
 In order to start the cypress tests:
 1. go to project `e2e-tests/frontend-tests/fe-tests-cypress`
 2. Install the dependencies `npm i`
-3. `npm run cy:run`. Or simply open cypress for manually assited running `npx cypress open`.
+3. `npm run cy:run`. Or simply open cypress for manually assisted running `npx cypress open`.
 
 ### Activating the Bridge Service
 To start the bridgeService go to the directory `e2e-tests/backend-tests/`, and press:
@@ -71,7 +78,7 @@ To see that the bridgeService is up you will need to try:
 This will let you know if the the bridgeService is up and running. 
 
 
-Furthermore you can also press:
+Furthermore, you can also press:
 
 ```
 curl --request POST \
@@ -105,3 +112,27 @@ curl --request POST \
 }'
 ```
 
+### Known Issues
+
+### Issues with Cypress
+#### Local Issues
+As this section is a Cypress project, we need to install the necessary dependencies [Cypress Dependencies](https://on.cypress.io/required-dependencies).
+
+#### Issues on CodeSpaces
+
+##### Xvfb
+While running the project on CodeSpace you will encounter issues related to Xvfb.
+
+```Shell
+Your system is missing the dependency: Xvfb
+
+Install Xvfb and run Cypress again.
+```
+
+In such cases you can simply install it by running the ollowing from the CodeSpaces terminal:
+
+```Shell
+sudo apt update
+sudo apt install xvfb
+
+```
