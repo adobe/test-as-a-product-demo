@@ -64,3 +64,23 @@ In order to start the cypress tests:
 1. go to project `e2e-tests/frontend-tests/fe-tests-cypress`
 2. Install the dependencies `npm i`
 3. `npm run cy:run`. Other simply open cypress for manually assited running `npx cypress open`.
+
+##### 4.1 Issues on your computer
+As this section is a Cypress project, we need to install the necessary dependencies [Cypress Dependencies](https://on.cypress.io/required-dependencies).
+
+##### 4.2 Issues on CodeSpaces
+While running the project on CodeSpace you will encounter issues related to Xvfvb.
+
+```Shell
+Your system is missing the dependency: Xvfb
+
+Install Xvfb and run Cypress again.
+```
+
+In such cases you can simply install it by running the ollowing from the CodeSpaces terminal:
+
+```Shell
+sudo apt update
+sudo apt install xvfb
+
+```
