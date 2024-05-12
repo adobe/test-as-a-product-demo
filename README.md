@@ -65,11 +65,16 @@ In order to start the cypress tests:
 2. Install the dependencies `npm i`
 3. `npm run cy:run`. Other simply open cypress for manually assited running `npx cypress open`.
 
-##### 4.1 Issues on your computer
+### Known Issues
+
+### Issues with Cypress
+#### Local Issues
 As this section is a Cypress project, we need to install the necessary dependencies [Cypress Dependencies](https://on.cypress.io/required-dependencies).
 
-##### 4.2 Issues on CodeSpaces
-While running the project on CodeSpace you will encounter issues related to Xvfvb.
+#### Issues on CodeSpaces
+
+##### Xvfb
+While running the project on CodeSpace you will encounter issues related to Xvfb.
 
 ```Shell
 Your system is missing the dependency: Xvfb
