@@ -129,7 +129,7 @@ Your system is missing the dependency: Xvfb
 Install Xvfb and run Cypress again.
 ```
 
-In such cases you can simply install it by running the ollowing from the CodeSpaces terminal:
+In such cases you can simply install it by running the following from the CodeSpaces terminal:
 
 ```Shell
 sudo apt update
