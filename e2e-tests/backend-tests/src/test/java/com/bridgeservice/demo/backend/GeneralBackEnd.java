@@ -20,7 +20,7 @@ public class GeneralBackEnd {
     @Test
     public void testAllIsUp() {
 
-        assertThat("We should be up", MyBlogBackEnd.isSystemUp(STD_URL));
+        assertThat("We should be up and running", MyBlogBackEnd.isSystemUp(STD_URL));
     }
 
     @Test
@@ -31,7 +31,8 @@ public class GeneralBackEnd {
         currentUpvote++;
 
         JsonPath newValue = MyBlogBackEnd.upVoteArticle(STD_URL, "learn-swedish");
-        assertThat("We should find the upvote", newValue.getInt("upvotes"), Matchers.equalTo(currentUpvote));
+        assertThat("The upvote should have been correctly incremented", newValue.getInt("upvotes"),
+                Matchers.equalTo(currentUpvote));
 
     }
 
@@ -39,20 +40,21 @@ public class GeneralBackEnd {
     public void testUpVoteNegative() {
         JsonPath l_article = MyBlogBackEnd.upVoteArticle(STD_URL, "learn-nothing");
 
-        assertThat("We should find the upvote", l_article, Matchers.nullValue());
+        assertThat("We should not find the this article", l_article, Matchers.nullValue());
     }
 
     @Test
     public void testFetchArticle() {
         JsonPath l_result = MyBlogBackEnd.fetchArticle(STD_URL, "learn-swedish");
-        assertThat("We should find the upvote", l_result.get("_id"), Matchers.equalTo("100013"));
+        assertThat("We should find this article", l_result.get("_id"), Matchers.equalTo("100013"));
 
     }
 
     @Test
     public void testFetchArticleNegative() {
         JsonPath l_result = MyBlogBackEnd.fetchArticle(STD_URL, "learn-nothing");
-        assertThat("We should find the upvote", l_result.get("error"), Matchers.equalTo("Not found!"));
+        assertThat("We should show the correct error when the aricle does not exist", l_result.get("error"),
+                Matchers.equalTo("Not found!"));
 
         MyBlogBackEnd.isSystemUp(STD_URL);
     }
@@ -73,7 +75,8 @@ public class GeneralBackEnd {
 
         JsonPath after = MyBlogBackEnd.fetchArticle(STD_URL, l_articleID);
 
-        assertThat("We should be able to get the body", after.get("comments[" + commentsBefore + "].postedBy"),
+        assertThat("We should be able to see the that comment has been taken into consideration",
+                after.get("comments[" + commentsBefore + "].postedBy"),
                 Matchers.equalTo(l_commentator));
     }
 
