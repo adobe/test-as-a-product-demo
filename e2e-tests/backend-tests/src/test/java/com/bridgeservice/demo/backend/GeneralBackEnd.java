@@ -14,6 +14,9 @@ import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.util.List;
+import java.util.Map;
+
 public class GeneralBackEnd {
     private static final String STD_URL = "http://localhost:8000/";
 
@@ -25,35 +28,33 @@ public class GeneralBackEnd {
 
     @Test
     public void testUpVote() {
-        JsonPath l_article = MyBlogBackEnd.fetchArticle(STD_URL, "learn-swedish");
-        int currentUpvote = Integer.parseInt(l_article.get("upvotes").toString());
-        System.out.println(currentUpvote);
-        currentUpvote++;
+        Map article = MyBlogBackEnd.fetchArticle(STD_URL, "learn-swedish");
+        int currentUpvote = Integer.parseInt(article.get("upvotes").toString());
 
-        JsonPath newValue = MyBlogBackEnd.upVoteArticle(STD_URL, "learn-swedish");
-        assertThat("The upvote should have been correctly incremented", newValue.getInt("upvotes"),
-                Matchers.equalTo(currentUpvote));
+        int newValue = MyBlogBackEnd.upVoteArticle(STD_URL, "learn-swedish");
+        assertThat("The upvote should have been correctly incremented", newValue,
+                Matchers.equalTo(currentUpvote+1));
 
     }
 
     @Test
     public void testUpVoteNegative() {
-        JsonPath l_article = MyBlogBackEnd.upVoteArticle(STD_URL, "learn-nothing");
+        Integer upvotes = MyBlogBackEnd.upVoteArticle(STD_URL, "learn-nothing");
 
-        assertThat("We should not find the this article", l_article, Matchers.nullValue());
+        assertThat("We should not find the this article", upvotes, Matchers.nullValue());
     }
 
     @Test
     public void testFetchArticle() {
-        JsonPath l_result = MyBlogBackEnd.fetchArticle(STD_URL, "learn-swedish");
-        assertThat("We should find this article", l_result.get("_id"), Matchers.equalTo("100013"));
+        Map result = MyBlogBackEnd.fetchArticle(STD_URL, "learn-swedish");
+        assertThat("We should find this article", result.get("_id"), Matchers.equalTo("100013"));
 
     }
 
     @Test
     public void testFetchArticleNegative() {
-        JsonPath l_result = MyBlogBackEnd.fetchArticle(STD_URL, "learn-nothing");
-        assertThat("We should show the correct error when the aricle does not exist", l_result.get("error"),
+        Map result = MyBlogBackEnd.fetchArticle(STD_URL, "learn-nothing");
+        assertThat("We should show the correct error when the aricle does not exist", result.get("error"),
                 Matchers.equalTo("Not found!"));
 
         MyBlogBackEnd.isSystemUp(STD_URL);
@@ -61,23 +62,23 @@ public class GeneralBackEnd {
 
     @Test
     public void testPostComment() {
-        String l_articleID = "learn-swedish";
-        JsonPath before = MyBlogBackEnd.fetchArticle(STD_URL, l_articleID);
+        String articleID = "learn-swedish";
+        Map before = MyBlogBackEnd.fetchArticle(STD_URL, articleID);
 
-        int commentsBefore = before.getInt("comments.size()");
+        int commentsBefore = ((List) before.get("comments")).size();
 
         int commentsAfter = commentsBefore + 1;
-        String l_commentator = "Hank" + commentsAfter;
-        String l_comment = "This is a comment nr " + commentsAfter + "!";
+        String commentator = "Hank" + commentsAfter;
+        String comment = "This is a comment nr " + commentsAfter + "!";
 
         assertThat("We should successfully add our comment",
-                MyBlogBackEnd.addCommentToArticle(STD_URL, l_commentator, l_comment, l_articleID));
+                MyBlogBackEnd.addCommentToArticle(STD_URL, commentator, comment, articleID));
 
-        JsonPath after = MyBlogBackEnd.fetchArticle(STD_URL, l_articleID);
+        Map lastComment = MyBlogBackEnd.fetchLastComment(STD_URL, articleID);
 
         assertThat("We should be able to see the that comment has been taken into consideration",
-                after.get("comments[" + commentsBefore + "].postedBy"),
-                Matchers.equalTo(l_commentator));
+                lastComment.get("postedBy"),
+                Matchers.equalTo(commentator));
     }
 
 }

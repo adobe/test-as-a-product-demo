@@ -14,7 +14,9 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
@@ -23,67 +25,88 @@ public class MyBlogBackEnd {
 
     public static final String API_ROOT = "api/articles/";
 
-    public static ResponseBody fetchPostResponse(String in_url, String in_endPoint, Map<String, String> in_bodyData) {
-        return given().body(in_bodyData).contentType(ContentType.JSON).post(in_url + in_endPoint).getBody();
+    public static ResponseBody fetchPostResponse(String url, String endPoint, Map<String, String> bodyData) {
+        return given().body(bodyData).contentType(ContentType.JSON).post(url + endPoint).getBody();
     }
 
-    private static ResponseBody fetchGetResponse(String in_url, String in_endPoint) {
-        return given().when().get(in_url + in_endPoint).getBody();
+    private static ResponseBody fetchGetResponse(String url, String endPoint) {
+        return given().when().get(url + endPoint).getBody();
     }
 
-    private static ResponseBody fetchPutResponse(String in_url, String in_endPoint) {
-        return given().put(in_url + in_endPoint).getBody();
+    private static ResponseBody fetchPutResponse(String url, String endPoint) {
+        return given().put(url + endPoint).getBody();
     }
+
     /**
      * Checks if the system is up
+     * 
      * @return true if the system is up and running
      */
-    public static boolean isSystemUp(String in_url) {
-        ResponseBody l_result = MyBlogBackEnd.fetchGetResponse(in_url,"test");
-        return (l_result != null) ? l_result.asString().equals("Up") : false;
+    public static boolean isSystemUp(String url) {
+        ResponseBody result = MyBlogBackEnd.fetchGetResponse(url, "test");
+        return (result != null) ? result.asString().equals("Up") : false;
     }
 
     /**
      * Fetches a JSON representation of the article
      *
-     * @param in_url       The url of the endpoint
-     * @param in_articleId The ID of the article
+     * @param url       The url of the endpoint
+     * @param articleId The ID of the article
      * @return A Json representation of the article
      */
-    public static JsonPath fetchArticle(String in_url, String in_articleId) {
-        ResponseBody lr_returnJSON = MyBlogBackEnd.fetchGetResponse(in_url, API_ROOT +in_articleId);
-        return lr_returnJSON.jsonPath();
+    public static Map fetchArticle(String url, String articleId) {
+        ResponseBody lr_returnJSON = MyBlogBackEnd.fetchGetResponse(url, API_ROOT + articleId);
+        return lr_returnJSON.jsonPath().get();
     }
 
     /**
      * Upvotes the given article
-     * @param in_url The url of the endpoint
-     * @param in_articleId The ID of the article
+     * 
+     * @param url       The url of the endpoint
+     * @param articleId The ID of the article
      * @return A Json representation of the article
      */
-    public static JsonPath upVoteArticle(String in_url, String in_articleId) {
+    public static Integer upVoteArticle(String url, String articleId) {
 
-        ExtractableResponse<Response> l_returnValue = given().put(in_url+API_ROOT+in_articleId+"/upvote").then().extract();
-        if (l_returnValue.statusCode()==404) {
+        ExtractableResponse<Response> returnValue = given().put(url + API_ROOT + articleId + "/upvote").then()
+                .extract();
+        if (returnValue.statusCode() == 404) {
             return null;
         }
-        return l_returnValue.jsonPath();
+        return returnValue.jsonPath().getInt("upvotes");
     }
 
     /**
      * Adds a comment to the article
-     * @param in_url The url of the endpoint
-     * @param in_postedBy The commentor
-     * @param in_text The comment
-     * @param in_articleId  The ID of the article
+     * 
+     * @param url       The url of the endpoint
+     * @param postedBy  The commentor
+     * @param text      The comment
+     * @param articleId The ID of the article
      * @return true is succeeded, false if failed
      */
-    public static boolean addCommentToArticle(String in_url, String in_postedBy, String in_text, String in_articleId) {
-        Map<String , String> l_bodyData = new HashMap<>();
-        l_bodyData.put("postedBy", in_postedBy);
-        l_bodyData.put("text", in_text);
-        ExtractableResponse<Response> l_returnValue = given().body(l_bodyData).contentType(ContentType.JSON).post(in_url + API_ROOT+in_articleId+"/comments").then().extract();
+    public static boolean addCommentToArticle(String url, String postedBy, String text, String articleId) {
+        Map<String, String> bodyData = new HashMap<>();
+        bodyData.put("postedBy", postedBy);
+        bodyData.put("text", text);
+        ExtractableResponse<Response> returnValue = given().body(bodyData).contentType(ContentType.JSON)
+                .post(url + API_ROOT + articleId + "/comments").then().extract();
 
-        return  l_returnValue.statusCode()==200;
+        return returnValue.statusCode() == 200;
+    }
+
+    /**
+     * Fetched the last existing comment of the article
+     * 
+     * @param stdUrl    the end point
+     * @param articleID the article ID
+     * @return The last comment of the article
+     */
+    public static Map fetchLastComment(String stdUrl, String articleID) {
+        Map article = fetchArticle(stdUrl, articleID);
+        List<Map> comments = (List<Map>) article.getOrDefault("comments", new ArrayList<>());
+        int lastIndex = comments.size() - 1;
+
+        return comments.get(lastIndex);
     }
 }
