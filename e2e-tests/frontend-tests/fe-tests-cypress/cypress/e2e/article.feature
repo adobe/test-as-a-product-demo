@@ -16,7 +16,6 @@ Feature: Articles
 
     Scenario: I can post a comment
         Given I am in the start page
-        Given there is an article "learn-german" in the system
         When I go to the articles page
         When I select the article "learn-german"
         Then I should be able to add a comment

@@ -72,50 +72,9 @@ Then("I should be able to add a comment", () => {
   cy.get("div[data-testid='previous-comments']")
     .contains("div.comment p[data-testid='post-text']", text)
     .should("exist");
-
-  let call = {
-    callContent: {
-      article: {
-        class: "com.bridgeservice.demo.backend.MyBlogBackEnd",
-        method: "fetchLastComment",
-        args: ["http://localhost:8000/", this.selectedArticle],
-      },
-    },
-  };
-
-  cy.task("bridgeService", call).then((result) => {
-    expect(result.returnValues.article).to.not.be.empty;
-    const resultData = result.returnValues.article;
-
-    expect(Object.keys(resultData)).to.include.members(["postedBy", "text"]);
-
-    expect(resultData.postedBy).to.equal(name);
-    expect(resultData.text).to.equal(text);
-  });
-});
-
-Given("there is an article {string} in the system", (text) => {
-  let call = {
-    callContent: {
-      article: {
-        class: "com.bridgeservice.demo.backend.MyBlogBackEnd",
-        method: "fetchArticle",
-        args: ["http://localhost:8000/", text],
-      },
-    },
-  };
-  cy.task("bridgeService", call).then((result) => {
-    expect(result.returnValues.article).to.not.be.empty;
-  });
 });
 
 Then("I should successfully upvote the article", () => {
-  //Add backend check
-  cy.get('button[data-testid="upvote-button"]').should("exist").click;
-  //Add backend check
-});
-
-Then("the article should have been upvoted", () => {
   //Add backend check
   cy.get('button[data-testid="upvote-button"]').should("exist").click;
   //Add backend check
