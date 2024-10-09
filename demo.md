@@ -21,9 +21,39 @@ Start:
 - Front-end
 - Bridge Service
 
-## 4-Ensuring Data is there
+`mvn compile exec:java -Dexec.mainClass=MainContainer -Dexec.args="test"`
+
+## 4-Getting the test to pass
+
+```
+Given I already have old comments for the article "learn-german"
+```
+
+```JS
+Given('I already have old comments for the article {string}', (text) => {
+  let calls = {
+    callContent: {
+      addComment: {
+        class: 'com.bridgeservice.demo.backend.MyBlogBackEnd',
+        method: 'addCommentToArticle',
+        args: ['http://localhost:8000/', faker.person.fullName(), faker.lorem.paragraph(), text],
+      },
+    },
+  }
+  cy.task('bridgeService', calls).then((result) => {
+    expect(result.returnValues).to.not.be.empty
+    expect(result.returnValues.addComment).to.equal(true);
+  })
+});
+```
+
+## 5-Ensuring Data is there
 
 Ensuring data is there
+
+```
+    Given there is an article "learn-german" in the system
+```
 
 ```JS
 Given("there is an article {string} in the system", (text) => {
@@ -39,14 +69,13 @@ Given("there is an article {string} in the system", (text) => {
   cy.task("bridgeService", call).then((result) => {
     expect(result.returnValues.article).to.not.be.empty;
   });
+});
 
 ```
 
-() Add Given
-
 ## 5-Making validation non-ui-driven
 
-Ensuring comments are there:
+Ensuring comments are there (Add to "I should be able to add a comment"):
 
 ```JS
   let call = {
@@ -101,7 +130,7 @@ Ensuring upvote has been successfull:
           cy.task("bridgeService", call).then((result2) => {
             expect(result2.returnValues.article).to.not.be.empty;
             expect(result2.returnValues.article.upvotes).to.equal(
-              votesBefore + 2
+              votesBefore + 1
             );
           });
         });
