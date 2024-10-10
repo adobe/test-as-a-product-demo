@@ -1,5 +1,5 @@
 # Test as a Product - Demo
-This is a demo project intended to show how Test as a Product can work. In this project we show how testBridge works.
+This is a demo project intended to show how Test as a Product and the [Bridge Service](https://github.com/adobe/bridgeService) can work. In this project we show how testBridge works.
 
 We have the following parts:
 * **my-blog** : A ReactJS project.
