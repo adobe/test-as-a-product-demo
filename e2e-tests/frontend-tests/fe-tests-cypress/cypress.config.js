@@ -8,8 +8,8 @@
  */
 const { defineConfig } = require('cypress')
 const createBundler = require('@bahmutov/cypress-esbuild-preprocessor')
-const { addCucumberPreprocessorPlugin } = require('@badeball/cypress-cucumber-preprocessor')
-const { createEsbuildPlugin }  = require ('@badeball/cypress-cucumber-preprocessor/esbuild')
+const { addCucumberPreprocessorPlugin } = require('@badeball/cypress-cucumber-preprocessor')
+const { createEsbuildPlugin }  = require ('@badeball/cypress-cucumber-preprocessor/esbuild')
 const addBridgeService = require('./cypress/plugins/bridgeService')
 
 
@@ -19,8 +19,9 @@ module.exports = defineConfig({
   videosFolder: 'reports/videos',
   chromeWebSecurity: false,
   e2e: {
-    setupNodeEvents(on, config) {
-      addCucumberPreprocessorPlugin(on, config)
+    async setupNodeEvents(on, config) {
+      await addCucumberPreprocessorPlugin(on, config);
+      
       on(
         "file:preprocessor",
         createBundler({
