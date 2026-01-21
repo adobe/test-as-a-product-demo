@@ -15,6 +15,7 @@ import {
   verifyCommentPosterExists,
   verifyCommentTextExists,
   verifyPageBodyHeaderExists,
+  verifyArticleTitle,
 } from "../../support/commentHelpers";
 const {
   Given,
@@ -35,7 +36,7 @@ When("I select the article {string}", (articleName) => {
 Then(
   "The article with the title {string} should have the expected elements",
   (text) => {
-    cy.get("div#page-body h1").should("exist").contains(text);
+    verifyArticleTitle(text);
     cy.get("div.upvotes-section button").should("exist").contains("Upvote");
     cy.get("div#page-body div.upvotes-section p")
       .invoke("text")

@@ -9,7 +9,9 @@
     "mochawesome": "^7.1.4"
   },
   "scripts": {
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "report:enhance": "node scripts/enhance-reports.js",
+    "test:full": "npm run cy:run; npm run report:enhance"
   },
   "dependencies": {
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",

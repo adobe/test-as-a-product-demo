@@ -19,6 +19,14 @@ export function verifyPageBodyHeaderExists() {
 }
 
 /**
+ * Verifies that the article title contains specific text
+ * @param {string} text - The text that should be contained in the h1 element
+ */
+export function verifyArticleTitle(text) {
+  cy.get("div#page-body h1").should("exist").contains(text);
+}
+
+/**
  * Verifies that comment poster elements exist
  */
 export function verifyCommentPostersExist() {
