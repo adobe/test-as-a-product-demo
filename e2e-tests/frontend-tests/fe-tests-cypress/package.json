@@ -17,6 +17,10 @@
     "json": {
       "enabled": true,
       "output": "reports/cucumber/cucumber-report.json"
+    },
+    "messages": {
+      "enabled": true,
+      "output": "reports/cucumber/messages.ndjson"
     }
   }
 }

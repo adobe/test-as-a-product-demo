@@ -7,6 +7,15 @@
  * it.
  */
 import { faker } from "@faker-js/faker";
+import {
+  verifyCommentPostersExist as vcPostersExist,
+  verifyCommentTextsExist,
+  verifyCommentPosterNotExists,
+  verifyCommentTextNotExists,
+  verifyCommentPosterExists,
+  verifyCommentTextExists,
+  verifyPageBodyHeaderExists,
+} from "../../support/commentHelpers";
 const {
   Given,
   When,
@@ -14,7 +23,7 @@ const {
 } = require("@badeball/cypress-cucumber-preprocessor");
 
 When("I select the article {string}", (articleName) => {
-  cy.get("div#page-body h1").should("exist");
+  verifyPageBodyHeaderExists();
   cy.get(`div#page-body a[data-testid="${articleName}"]`)
     .should("exist")
     .click();
@@ -46,19 +55,11 @@ Then("I should be able to add a comment", () => {
   cy.get("div#add-comment-form").should("exist");
   cy.get("div[data-testid='previous-comments']").should("exist");
 
-  cy.get("div[data-testid='previous-comments']")
-    .find("div.comment h4[data-testid='poster']")
-    .should("exist");
-  cy.get("div[data-testid='previous-comments']")
-    .find("div.comment p[data-testid='post-text']")
-    .should("exist");
+  vcPostersExist();
+  verifyCommentTextsExist();
 
-  cy.get("div[data-testid='previous-comments']")
-    .contains("div.comment h4[data-testid='poster']", name)
-    .should("not.exist");
-  cy.get("div[data-testid='previous-comments']")
-    .contains("div.comment p[data-testid='post-text']", text)
-    .should("not.exist");
+  verifyCommentPosterNotExists(name);
+  verifyCommentTextNotExists(text);
 
   cy.get("div#add-comment-form").within(() => {
     cy.get("input[data-testid='name']").should("exist").type(name);
@@ -66,12 +67,8 @@ Then("I should be able to add a comment", () => {
     cy.get("button[type='submit']").should("exist").click();
   });
 
-  cy.get("div[data-testid='previous-comments']")
-    .contains("div.comment h4[data-testid='poster']", name)
-    .should("exist");
-  cy.get("div[data-testid='previous-comments']")
-    .contains("div.comment p[data-testid='post-text']", text)
-    .should("exist");
+  verifyCommentPosterExists(name);
+  verifyCommentTextExists(text);
 });
 
 Then("I should successfully upvote the article", () => {
