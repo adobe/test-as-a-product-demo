@@ -18,3 +18,25 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// Add Mochawesome context for screenshots
+import addContext from 'mochawesome/addContext'
+
+Cypress.on('test:after:run', (test, runnable) => {
+  // If the test has failed, add a screenshot to the Mochawesome report
+  if (test.state === 'failed') {
+    let item = runnable;
+    const nameParts = [runnable.title];
+
+    // Iterate through all parents and grab the titles
+    while (item.parent) {
+      nameParts.unshift(item.parent.title);
+      item = item.parent;
+    }
+
+    const fullTestName = nameParts.filter(Boolean).join(' -- ');
+    const imageUrl = `screenshots/${Cypress.spec.name}/${fullTestName} (failed).png`;
+
+    addContext({ test }, imageUrl);
+  }
+});

@@ -14,6 +14,10 @@ const addBridgeService = require('./cypress/plugins/bridgeService')
 
 
 module.exports = defineConfig({
+  reporter: 'cypress-multi-reporters',
+  reporterOptions: {
+    configFile: 'reporter-config.json',
+  },
   fixturesFolder: 'cypress/fixtures',
   screenshotsFolder: 'reports/screenshots',
   videosFolder: 'reports/videos',
